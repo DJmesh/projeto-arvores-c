@@ -1,3 +1,0 @@
-C:/Users/eduardo.prestes/Music/projeto-arvores-c/build/CMakeFiles/arvore_binaria.dir
-C:/Users/eduardo.prestes/Music/projeto-arvores-c/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/eduardo.prestes/Music/projeto-arvores-c/build/CMakeFiles/ZERO_CHECK.dir

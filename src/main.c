@@ -11,7 +11,7 @@ int main() {
     ListTreeNode* list_tree_root = create_list_node("Músicas", "");
 
     clock_t start_time_list_tree = clock();
-    load_csv_to_list_tree("../data/top_500_musicas.csv", list_tree_root);
+    load_csv_to_list_tree("../data/top_10000_musicas.csv", list_tree_root);
     clock_t end_time_list_tree = clock();
     double processing_time_list_tree = (double)(end_time_list_tree - start_time_list_tree) / CLOCKS_PER_SEC;
 
@@ -26,14 +26,14 @@ int main() {
     BSTNode* bst_root = NULL;
 
     clock_t start_time_bst = clock();
-    FILE* file = fopen("../data/top_500_musicas.csv", "r");
+    FILE* file = fopen("../data/top_10000_musicas.csv", "r");
     if (!file) {
         perror("Erro ao abrir o arquivo CSV");
         return 1;
     }
 
     char line[512];
-    fgets(line, sizeof(line), file); // Ignorar cabeçalho
+    fgets(line, sizeof(line), file);
     while (fgets(line, sizeof(line), file)) {
         char* track_name = strtok(line, ",");
         char* artist_name = strtok(NULL, "\n");
