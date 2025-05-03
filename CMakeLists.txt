@@ -9,7 +9,8 @@ include_directories(include)
 
 # Executável principal para árvore binária
 add_executable(arvore_binaria
-    src/main.c
-    src/bst.c
-    src/utils.c
+        src/main.c
+        src/bst.c
+        src/utils.c
+        src/list_tree.c  # Add this line
 )
