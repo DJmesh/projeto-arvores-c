@@ -1,7 +1,6 @@
 // main_list.c - Teste da Árvore com Lista de Filhos
 #include <stdio.h>
-#include <stdlib.h>
-#include "../include/list_tree.h"
+#include "list_tree.h"
 
 int main() {
     // Raiz representa a categoria principal: "Músicas"
