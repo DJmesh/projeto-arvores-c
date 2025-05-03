@@ -12,5 +12,6 @@ add_executable(arvore_binaria
         src/main.c
         src/bst.c
         src/utils.c
-        src/list_tree.c  # Add this line
+        src/list_tree.c
+        include/utils.h  # Add this line
 )

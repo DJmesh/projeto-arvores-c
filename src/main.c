@@ -1,26 +1,65 @@
-// main_list.c - Teste da Árvore com Lista de Filhos
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include "list_tree.h"
+#include "bst.h"
+#include "utils.h"
 
 int main() {
-    // Raiz representa a categoria principal: "Músicas"
-    ListTreeNode* root = create_list_node("Músicas", "");
+    // **arvore com Lista de Filhos**
+    printf("Carregando dados na arvore com Lista de Filhos...\n");
+    ListTreeNode* list_tree_root = create_list_node("Músicas", "");
 
-    ListTreeNode* rock = create_list_node("Rock", "");
-    ListTreeNode* pop = create_list_node("Pop", "");
+    clock_t start_time_list_tree = clock();
+    load_csv_to_list_tree("../data/top_500_musicas.csv", list_tree_root);
+    clock_t end_time_list_tree = clock();
+    double processing_time_list_tree = (double)(end_time_list_tree - start_time_list_tree) / CLOCKS_PER_SEC;
 
-    add_child(root, rock);
-    add_child(root, pop);
+    printf("\nEstrutura da arvore com Lista de Filhos:\n");
+    //print_list_tree(list_tree_root, 0);
+    printf("\nTempo de processamento (arvore com Lista de Filhos): %f segundos\n", processing_time_list_tree);
 
-    add_child(rock, create_list_node("Bohemian Rhapsody", "Queen"));
-    add_child(rock, create_list_node("Back in Black", "AC/DC"));
+    free_list_tree(list_tree_root);
 
-    add_child(pop, create_list_node("Let it Be", "The Beatles"));
-    add_child(pop, create_list_node("Shape of You", "Ed Sheeran"));
+    // **arvore Binaria de Busca**
+    printf("\nCarregando dados na arvore Binaria de Busca...\n");
+    BSTNode* bst_root = NULL;
 
-    printf("\nEstrutura da árvore com listas:\n");
-    print_list_tree(root, 0);
+    clock_t start_time_bst = clock();
+    FILE* file = fopen("../data/top_500_musicas.csv", "r");
+    if (!file) {
+        perror("Erro ao abrir o arquivo CSV");
+        return 1;
+    }
 
-    free_list_tree(root);
+    char line[512];
+    fgets(line, sizeof(line), file); // Ignorar cabeçalho
+    while (fgets(line, sizeof(line), file)) {
+        char* track_name = strtok(line, ",");
+        char* artist_name = strtok(NULL, "\n");
+        if (track_name && artist_name) {
+            bst_root = insert_bst(bst_root, track_name, artist_name);
+        }
+    }
+    fclose(file);
+    clock_t end_time_bst = clock();
+    double processing_time_bst = (double)(end_time_bst - start_time_bst) / CLOCKS_PER_SEC;
+
+    printf("\nEstrutura da arvore Binaria de Busca (em ordem):\n");
+    //inorder_traversal(bst_root);
+    printf("\nTempo de processamento (arvore Binaria de Busca): %f segundos\n", processing_time_bst);
+
+    free_bst(bst_root);
+
+    // **Comparação**
+    printf("\n--- Comparação de Estruturas ---\n");
+    if (processing_time_list_tree < processing_time_bst) {
+        printf("A arvore com Lista de Filhos foi mais rapida por %.6f segundos.\n", processing_time_bst - processing_time_list_tree);
+    } else if (processing_time_bst < processing_time_list_tree) {
+        printf("A arvore Binaria de Busca foi mais rapida por %.6f segundos.\n", processing_time_list_tree - processing_time_bst);
+    } else {
+        printf("Ambas as estruturas tiveram tempos de processamento iguais.\n");
+    }
+
     return 0;
 }
