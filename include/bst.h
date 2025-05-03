@@ -1,8 +1,6 @@
 #ifndef BST_H
 #define BST_H
 
-#include <stdbool.h>
-
 // Estrutura de um nó da árvore
 typedef struct BSTNode {
     char track_name[100];

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/list_tree.h"
+#include "list_tree.h"
 
 ListTreeNode* create_list_node(const char* track_name, const char* artist_name) {
     ListTreeNode* node = (ListTreeNode*)malloc(sizeof(ListTreeNode));

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/bst.h"
+#include "bst.h"
 
 BSTNode* create_node(const char* track_name, const char* artist_name) {
     BSTNode* new_node = (BSTNode*)malloc(sizeof(BSTNode));
@@ -33,9 +33,13 @@ BSTNode* insert_bst(BSTNode* root, const char* track_name, const char* artist_na
 BSTNode* search_bst(BSTNode* root, const char* track_name) {
     if (root == NULL) return NULL;
     int cmp = strcmp(track_name, root->track_name);
-    if (cmp == 0) return root;
-    else if (cmp < 0) return search_bst(root->left, track_name);
-    else return search_bst(root->right, track_name);
+    if (cmp == 0)
+        return root;
+
+    if (cmp < 0)
+        return search_bst(root->left, track_name);
+
+    return search_bst(root->right, track_name);
 }
 
 void inorder_traversal(BSTNode* root) {

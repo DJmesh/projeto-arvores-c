@@ -1,7 +1,7 @@
 #ifndef LIST_TREE_H
 #define LIST_TREE_H
 
-#include <stdbool.h>
+
 
 // Estrutura do nó da lista de filhos
 typedef struct ChildNode {
